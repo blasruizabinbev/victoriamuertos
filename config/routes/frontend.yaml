@@ -1,0 +1,15 @@
+index:
+  path: '/'
+  controller: App\Controller\Front\FrontController::index
+
+agegate:
+  path: '/age-gate'
+  controller: App\Controller\Front\FrontController::index
+
+register:
+  path: '/register'
+  controller: App\Controller\Front\FrontController::index
+
+thankyou:
+  path: '/thankyou'
+  controller: App\Controller\Front\FrontController::index
