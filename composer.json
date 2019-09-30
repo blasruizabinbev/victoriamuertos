@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "beberlei/assert": "^3.2",
         "composer/composer": "^1.9",
+        "guzzlehttp/guzzle": "^6.3",
         "league/tactician-bundle": "^1.1",
         "mediamonks/admin-pack": "^1.0",
         "mediamonks/pii-pack": "^1.0",

@@ -37,6 +37,7 @@ class ProfileController
                 boolval($request->get('acceptTerms'))
             )
         );
+
         return [
             'uuid' => $uuid
         ];

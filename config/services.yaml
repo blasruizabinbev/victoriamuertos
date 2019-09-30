@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     admin_path: 'admin_oGMqczDCTooyWGv4'
-    asset_version: 1569591747405
+    asset_version: 1569856796471
 
 services:
     # default configuration for services in *this* file
@@ -36,3 +36,11 @@ services:
         resource: '../src/Bus/Command/Handler'
         tags:
             - { name: tactician.handler, typehints: true, bus: command }
+
+    App\Service\MailService:
+        arguments:
+            - '%env(MAILSERVICE_LIST_ID)%'
+            - base_uri: 'https://us20.api.mailchimp.com/3.0/'
+              auth:
+                  - 'xibalba'
+                  - '%env(MAILSERVICE_APIKEY)%'
