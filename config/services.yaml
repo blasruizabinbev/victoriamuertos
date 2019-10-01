@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     admin_path: 'admin_oGMqczDCTooyWGv4'
-    asset_version: 1569857555703
+    asset_version: 1569934001856
 
 services:
     # default configuration for services in *this* file
