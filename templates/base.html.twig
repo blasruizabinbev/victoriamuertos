@@ -24,7 +24,7 @@
 	<meta name="twitter:creator" content="@VictoriaMX">
 	<meta name="twitter:title" content="Chingones hasta en la Muerte">
 	<meta name="twitter:description" content="¡Gracias por participar! Has iniciado tu viaje al más allá. Ahora tendrás la oportunidad de ganar una experiencia única en la Riviera Maya.">
-	<meta name="twitter:image" content="{{ app.request.getScheme() }}://{{ app.request.getHost() }}{{ app.request.baseUrl }}/static/image/share.png">
+	<meta name="twitter:image" content="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/static/image/share.png">
 	<meta name="description" content="¡Gracias por participar! Has iniciado tu viaje al más allá. Ahora tendrás la oportunidad de ganar una experiencia única en la Riviera Maya.">
 	<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
@@ -38,8 +38,8 @@
 
 
     <meta name="document-base"
-          content="{{ app.request.getScheme() }}://{{ app.request.getHost() }}{{ app.request.baseUrl }}/"/>
-    <base href="{{ app.request.getScheme() }}://{{ app.request.getHost() }}{{ app.request.baseUrl }}/version/{{ asset_version }}/"/>
+          content="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/"/>
+    <base href="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/version/{{ asset_version }}/"/>
 
     <link href="css/app.css" rel="stylesheet">
     <script>
