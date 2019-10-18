@@ -2,3 +2,8 @@ api_saveProfile:
   path: /api/saveProfile
   methods: ['post']
   controller: App\Controller\Api\ProfileController::saveProfile
+
+api_getProfiles:
+  path: /api/getProfiles
+  methods: ['get']
+  controller: App\Controller\Api\ProfileController::getProfiles

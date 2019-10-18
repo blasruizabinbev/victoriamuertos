@@ -15,6 +15,14 @@ use Ramsey\Uuid\Uuid;
 class Profile
 {
 
+    const QUERY_DEFAULT_LIMIT = 10;
+
+    const OFFER_VARIATIONS = 3;
+
+    const MOD_PENDING = 'pending';
+    const MOD_APPROVED = 'approved';
+    const MOD_DENIED = 'denied';
+
     use TimestampableEntity;
 
     /**
@@ -50,17 +58,17 @@ class Profile
     protected $dateOfBirth;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer", length=1, nullable=true)
      */
     protected $questionOneAnswer;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer", length=1, nullable=true)
      */
     protected $questionTwoAnswer;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer", length=1, nullable=true)
      */
     protected $questionThreeAnswer;
 
@@ -69,6 +77,32 @@ class Profile
      */
     protected $acceptTerms;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $acceptCommercial;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $image;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @MediaMonks\Transformable(name="encrypt")
+     */
+    protected $offerName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $offerVariation = 0;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $modStatus = self::MOD_PENDING;
+
     public static function createFromCommand(SaveProfileCommand $command)
     {
         $self = (new self())
@@ -76,10 +110,11 @@ class Profile
             ->setLastName($command->getLastName())
             ->setEmail($command->getEmail())
             ->setDateOfBirth($command->getDateOfBirth())
-            ->setQuestionOneAnswer($command->getQuestionOneAnswer())
-            ->setQuestionTwoAnswer($command->getQuestionTwoAnswer())
-            ->setQuestionThreeAnswer($command->getQuestionThreeAnswer())
             ->setAcceptTerms($command->getAcceptTerms())
+            ->setAcceptCommercial($command->getAcceptCommercial())
+            ->setOfferName($command->getOfferName())
+            ->setOfferVariation(mt_rand(1,Profile::OFFER_VARIATIONS))
+            ->setModStatus(self::MOD_PENDING)
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
         ;
@@ -238,6 +273,101 @@ class Profile
     {
         $this->acceptTerms = $acceptTerms;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAcceptCommercial()
+    {
+        return $this->acceptCommercial;
+    }
+
+    /**
+     * @param mixed $acceptCommercial
+     * @return Profile
+     */
+    public function setAcceptCommercial($acceptCommercial)
+    {
+        $this->acceptCommercial = $acceptCommercial;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     * @return Profile
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOfferName()
+    {
+        return $this->offerName;
+    }
+
+    /**
+     * @param mixed $offerName
+     * @return Profile
+     */
+    public function setOfferName($offerName)
+    {
+        $this->offerName = $offerName;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOfferVariation()
+    {
+        return $this->offerVariation;
+    }
+
+    /**
+     * @param int $offerVariation
+     * @return Profile
+     */
+    public function setOfferVariation($offerVariation)
+    {
+        $this->offerVariation = $offerVariation;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModStatus()
+    {
+        return $this->modStatus;
+    }
+
+    /**
+     * @param string $modStatus
+     * @return Profile
+     */
+    public function setModStatus($modStatus)
+    {
+        $this->modStatus = $modStatus;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->getUuid();
     }
 
 }
