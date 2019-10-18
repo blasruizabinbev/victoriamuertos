@@ -1,9 +1,0 @@
-{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
-
-{% block field %}
-    {% if value %}
-        <img src="{{ s3_web_url }}images/{{ value }}" data-attr-preview="true" style="max-height:24px;">
-    {% else %}
-        No image
-    {% endif %}
-{% endblock %}

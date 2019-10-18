@@ -5,18 +5,13 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     admin_path: 'admin_oGMqczDCTooyWGv4'
-    s3_web_url: '%env(S3_WEB_URL)%'
-    asset_version: 1571409790019
+    asset_version: 1570459987479
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
-    _instanceof:
-        League\Fractal\TransformerAbstract:
-            tags: ['app.service_transformer']
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -33,28 +28,6 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    session.handler.pdo:
-        class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
-        public:    false
-        arguments:
-            - '%env(DATABASE_URL)%'
-
-    App\Serializer\ArraySerializer:
-        class: App\Serializer\ArraySerializer
-
-    League\Fractal\Manager:
-        class: League\Fractal\Manager
-        calls:
-            - [setSerializer, ['@App\Serializer\ArraySerializer']]
-
-    App\Controller\Api\ProfileController:
-        public: true
-        arguments:
-            - '@tactician.commandbus.command'
-            - '@tactician.commandbus.query'
-            - '@App\Service\TransformerManager'
-            - '@logger'
-
     App\EventSubscriber\AssertExceptionSubscriber:
         tags:
             - { name: kernel.event_subscriber }
@@ -64,15 +37,6 @@ services:
         tags:
             - { name: tactician.handler, typehints: true, bus: command }
 
-    App\Bus\Query\Handler\:
-        resource: '../src/Bus/Query/Handler'
-        tags:
-            - { name: tactician.handler, typehints: true, bus: query }
-
-    App\Service\ImageService:
-        arguments:
-            - '@storage_filesystem'
-
     App\Service\MailService:
         arguments:
             - '%env(MAILSERVICE_LIST_ID)%'
@@ -80,10 +44,3 @@ services:
               auth:
                   - 'xibalba'
                   - '%env(MAILSERVICE_APIKEY)%'
-
-    App\Transformer\ProfileTransformer:
-        arguments:
-            - '%s3_web_url%'
-
-    App\Transformer\TransformerCollection:
-        arguments: [!tagged app.service_transformer]

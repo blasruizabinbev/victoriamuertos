@@ -19,18 +19,4 @@ class ProfileRepository extends ServiceEntityRepository
         $this->_em->persist($profile);
         $this->_em->flush();
     }
-
-    public function findWithOffer($offset, $limit)
-    {
-        $q = $this->_em->createQuery('SELECT p FROM App:Profile p WHERE p.modStatus = \'approved\' ORDER BY p.createdAt DESC');
-        $q->setFirstResult($offset);
-        $q->setMaxResults($limit);
-        return $q->getResult();
-    }
-
-    public function findMax()
-    {
-        $q = $this->_em->createQuery('SELECT COUNT(p) AS num FROM App:Profile p WHERE p.modStatus = \'approved\'');
-        return intval($q->getSingleScalarResult());
-    }
 }

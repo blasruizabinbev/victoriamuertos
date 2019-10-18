@@ -4,7 +4,6 @@ sonata_admin:
         handler: sonata.admin.security.handler.role
     templates:
         user_block: 'admin/user_block.html.twig'
-        list: 'admin/CRUD/list.html.twig'
     dashboard:
         groups:
             admin.group.global:
@@ -12,7 +11,6 @@ sonata_admin:
                 items:
                     - admin.profile
                     - admin.user
-                    - admin.moderator
                 roles: [ ROLE_ROOT ]
 
 services:
@@ -26,8 +24,3 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Global, label: CMS Users}
         arguments: [ ~, App\Entity\User, ~]
-    admin.moderator:
-        class: App\Admin\ModeratorAdmin
-        arguments: [~, ~, App\Controller\Admin\ModeratorController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "Images", label: "Moderator" }
