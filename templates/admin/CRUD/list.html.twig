@@ -1,0 +1,40 @@
+{% extends '@SonataAdmin/CRUD/list.html.twig' %}
+
+{% block list_table %}
+    {{ parent() }}
+    <div id="hover-image" style="display:none;"><img src="" alt="Hover image" style="max-height:256px; max-width:256px;"></div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #hover-image {
+            position: absolute;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            top: 0;
+            left: 0;
+            width: 266px;
+            height: 266px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            const hoverimg = $('#hover-image');
+            $('[data-attr-preview=true]').mouseover(function() {
+                hoverimg.css('top', $(this).position().top - 30);
+                hoverimg.css('left', $(this).position().left - 30);
+                hoverimg.find('img')[0].src = $(this).attr('src');
+                hoverimg.show();
+            }).mouseout(function() {
+                hoverimg.hide();
+            });
+        });
+    </script>
+{% endblock %}

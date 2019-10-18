@@ -1,0 +1,84 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('label.btn-toggle').click(function () {
+                toggleImage(jQuery(this));
+            });
+            jQuery('.image-container img').click(function () {
+                var label = jQuery(this).parent().find('label.btn-toggle');
+                label.toggleClass('active');
+                var cbox = label.find('input[type=checkbox]');
+                if (cbox.prop('checked')) {
+                    cbox.prop('checked', false);
+                }
+                else {
+                    cbox.prop('checked', true);
+                }
+                toggleImage(label);
+            })
+        });
+
+        function toggleImage(label) {
+            jQuery(label).toggleClass('btn-primary').toggleClass('btn-danger');
+            jQuery('span.glyphicon', label).toggleClass('glyphicon-ok').toggleClass('glyphicon-remove');
+            var img = jQuery(label).closest('.image-container').find('img');
+            if (img.css('opacity') == 0.15) {
+                img.css('opacity', 1);
+            }
+            else {
+                img.css('opacity', 0.15);
+            }
+        }
+
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .image-container img {
+            cursor: pointer;
+        }
+        .bs-callout {
+            padding: 20px;
+            font-size: 18px;
+        }
+        .image-label {
+            position: absolute;
+            bottom:5px;
+            left:5px;
+            width:246px;
+            background-color:#000;
+            opacity:0.75;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% if profiles|length %}
+        <form action="{{ admin.generateUrl('store') }}" method="POST">
+            {% for profile in profiles %}
+                <div class="pull-left image-container" style="position:relative; margin: 10px;">
+                    <div class="btn-group" data-toggle="buttons" style="position:absolute; right:0px; top:0px;">
+                        <label class="btn btn-success btn-toggle active" style="height:35px; width:35px;">
+                            <input name="image[{{ profile.uuid }}]" type="checkbox" checked autocomplete="off">
+                            <input name="list[{{ profile.uuid }}]" type="hidden" value="1">
+                            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        </label>
+                    </div>
+                    <img src="{{ s3_web_url }}images/{{ profile.image }}" alt="" class="img-thumbnail" width="256" height="256">
+                    <div class="label image-label">{{ profile.offerName }}</div>
+                </div>
+            {% endfor %}
+            <div class="clearfix"></div>
+            <div style="margin:10px;">
+                <button onClick="return window.confirm('Are you sure all checked images are allowed?')" type="submit" class="btn btn-info btn-lg">Moderate images</button>
+            </div>
+        </form>
+    {% else %}
+        <div class="bs-callout bs-callout-info bg-info">No images to moderate.</div>
+    {% endif %}
+{% endblock %}

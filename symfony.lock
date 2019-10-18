@@ -1,4 +1,7 @@
 {
+    "aws/aws-sdk-php": {
+        "version": "3.112.17"
+    },
     "beberlei/assert": {
         "version": "3.2.2"
     },
@@ -126,6 +129,15 @@
     "knplabs/knp-menu-bundle": {
         "version": "2.3.0"
     },
+    "league/flysystem": {
+        "version": "1.0.55"
+    },
+    "league/flysystem-aws-s3-v3": {
+        "version": "1.0.23"
+    },
+    "league/fractal": {
+        "version": "0.18.0"
+    },
     "league/tactician": {
         "version": "1.0.3"
     },
@@ -181,6 +193,9 @@
     "monolog/monolog": {
         "version": "1.25.1"
     },
+    "mtdowling/jmespath.php": {
+        "version": "2.4.0"
+    },
     "nette/bootstrap": {
         "version": "3.0.0"
     },
@@ -210,6 +225,12 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
+    },
+    "oneup/flysystem-bundle": {
+        "version": "3.1.0",
+        "files": [
+            "config/packages/oneup_flysystem.yaml"
+        ]
     },
     "paragonie/random_compat": {
         "version": "9.99.99"
