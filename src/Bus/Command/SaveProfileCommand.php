@@ -31,11 +31,11 @@ class SaveProfileCommand
     {
 
         Assert::lazy()
-            ->that($firstName, 'firstName')->string()->notEmpty()
-            ->that($lastName, 'lastName')->string()->notEmpty()
-            ->that($email, 'email')->email()
+            ->that($firstName, 'firstName')->string()->notEmpty()->maxLength(64)
+            ->that($lastName, 'lastName')->string()->notEmpty()->maxLength(64)
+            ->that($email, 'email')->email()->maxLength(64)
             ->that($dateOfBirth, 'dateOfBirth')->date('Y-m-d')
-            ->that($offerName, 'offerName')->string()->notEmpty()
+            ->that($offerName, 'offerName')->string()->notEmpty()->maxLength(64)
             ->that($image, 'image')->base64()
             ->that($acceptTerms, 'acceptTerms')->boolean()->eq(true)
             ->that($acceptCommercial, 'acceptCommercial')->boolean()
