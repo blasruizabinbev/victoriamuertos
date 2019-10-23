@@ -6,7 +6,6 @@ use App\Bus\Command\SaveProfileCommand;
 use App\Entity\Profile;
 use App\Repository\ProfileRepository;
 use App\Service\ImageService;
-use App\Service\MailService;
 
 class ProfileHandler
 {
@@ -21,16 +20,10 @@ class ProfileHandler
      */
     protected $imageService;
 
-    /**
-     * @var MailService
-     */
-    protected $mailService;
-
-    public function __construct(ProfileRepository $profileRepository, ImageService $imageService, MailService $mailService)
+    public function __construct(ProfileRepository $profileRepository, ImageService $imageService)
     {
         $this->profileRepository = $profileRepository;
         $this->imageService = $imageService;
-        $this->mailService = $mailService;
     }
 
     /**
@@ -45,8 +38,6 @@ class ProfileHandler
         $profile->setImage($fileName);
 
         $this->profileRepository->saveProfile($profile);
-
-        $this->mailService->subscribeUser($profile);
 
         return $profile->getUuid();
     }

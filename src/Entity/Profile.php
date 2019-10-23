@@ -11,6 +11,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Table
  * @ORM\Entity(repositoryClass="App\Repository\ProfileRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Profile
 {

@@ -22,9 +22,9 @@
 	<meta name="apple-mobile-web-app-title" content="Xibalba">
 	<meta property="og:title" content="{{ meta.title }}" />
 	<meta property="og:description" content="{{ meta.description }}" />
-	<meta property="og:url" content="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/" />
+	<meta property="og:url" content="{{ app.request.uri }}" />
 	{% if meta.shareImage is not null %}
-		<meta property="og:image" content="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/data/images/sh-{{ meta.shareImage }}" />
+		<meta property="og:image" content="{{ s3_web_url }}images/sh-{{ meta.shareImage }}" />
 	{% else %}
 		<meta property="og:image" content="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/static/image/share.png" />
 	{% endif %}
@@ -34,7 +34,7 @@
 	<meta name="twitter:title" content="{{ meta.title }}">
 	<meta name="twitter:description" content="{{ meta.description }}">
 	{% if meta.shareImage is not null %}
-		<meta name="twitter:image" content="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/data/images/sh-{{ meta.shareImage }}">
+		<meta name="twitter:image" content="{{ s3_web_url }}images/sh-{{ meta.shareImage }}">
 	{% else %}
 		<meta name="twitter:image" content="https://{{ app.request.getHost() }}{{ app.request.baseUrl }}/static/image/share.png">
 	{% endif %}

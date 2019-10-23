@@ -11,6 +11,8 @@ framework:
         cookie_secure: auto
         cookie_samesite: lax
 
+    disallow_search_engine_index: false
+
     #esi: true
     #fragments: true
     php_errors:

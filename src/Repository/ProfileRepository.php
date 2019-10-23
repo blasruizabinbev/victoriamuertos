@@ -22,7 +22,7 @@ class ProfileRepository extends ServiceEntityRepository
 
     public function findWithOffer($offset, $limit)
     {
-        $q = $this->_em->createQuery('SELECT p FROM App:Profile p WHERE p.modStatus = \'approved\' ORDER BY p.createdAt DESC');
+        $q = $this->_em->createQuery('SELECT p FROM App:Profile p WHERE p.offerVariation IS NOT NULL AND p.modStatus = \'approved\' ORDER BY p.createdAt DESC');
         $q->setFirstResult($offset);
         $q->setMaxResults($limit);
         return $q->getResult();
@@ -30,7 +30,7 @@ class ProfileRepository extends ServiceEntityRepository
 
     public function findMax()
     {
-        $q = $this->_em->createQuery('SELECT COUNT(p) AS num FROM App:Profile p WHERE p.modStatus = \'approved\'');
+        $q = $this->_em->createQuery('SELECT COUNT(p) AS num FROM App:Profile p WHERE p.offerVariation IS NOT NULL AND p.modStatus = \'approved\'');
         return intval($q->getSingleScalarResult());
     }
 }

@@ -3,8 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Profile;
-use App\Service\ImageService;
-use App\Service\MailService;
+use App\Service\MailService\MailService;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -31,7 +30,7 @@ class ModeratorController extends Controller
         $result = $this->getDoctrine()
             ->getManager()
             ->createQuery("SELECT p FROM App:Profile p WHERE p.modStatus = 'pending' AND p.image IS NOT NULL AND p.image != '' ORDER BY p.createdAt ASC")
-            ->setMaxResults(20)
+            ->setMaxResults(15)
             ->getResult();
 
         return $this->renderWithExtraParams('admin/moderator/list.html.twig', [
@@ -54,13 +53,11 @@ class ModeratorController extends Controller
         foreach ($approvedEntities as $entity) {
             /** @var Profile $entity */
             $entity->setModStatus(Profile::MOD_APPROVED);
-            $this->mailService->updateTag($entity, MailService::TAG_APPROVED);
         }
         $unapprovedEntities = $this->getDoctrine()->getRepository(Profile::class)->findBy(['uuid' => $unapproved]);
         foreach ($unapprovedEntities as $entity) {
             /** @var Profile $entity */
             $entity->setModStatus(Profile::MOD_DENIED);
-            $this->mailService->updateTag($entity, MailService::TAG_DENIED);
         }
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('moderator_list');
