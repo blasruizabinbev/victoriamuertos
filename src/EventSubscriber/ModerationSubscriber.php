@@ -47,7 +47,7 @@ class ModerationSubscriber implements EventSubscriber
         if(in_array($entity->getModStatus(), [Profile::MOD_APPROVED, Profile::MOD_DENIED])) {
             $this->dispatcher->dispatch(
                 new ProfileModerated(
-                    $this->decrypt($entity->getUuid()),
+                    $entity->getUuid(),
                     $this->decrypt($entity->getEmail()),
                     $entity->getModStatus()
                 )
@@ -66,7 +66,7 @@ class ModerationSubscriber implements EventSubscriber
         ) {
             $this->dispatcher->dispatch(
                 new ProfileModerated(
-                    $this->decrypt($entity->getUuid()),
+                    $entity->getUuid(),
                     $this->decrypt($entity->getEmail()),
                     $entity->getModStatus()
                 )
