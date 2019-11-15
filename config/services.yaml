@@ -6,7 +6,7 @@
 parameters:
     admin_path: 'admin_oGMqczDCTooyWGv4'
     s3_web_url: '%env(S3_WEB_URL)%'
-    asset_version: 1573477929019
+    asset_version: 1573810914136
 
 services:
     # default configuration for services in *this* file
